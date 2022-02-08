@@ -1,0 +1,16 @@
+.letter {
+    margin: 0;
+    padding: 0;
+}
+
+.default {
+    color: black;
+}
+
+.correct {
+    color: green;
+}
+
+.wrong {
+    color: red;
+}
