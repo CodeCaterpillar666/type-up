@@ -2,7 +2,7 @@ import style from "./index.module.css";
 
 export type LetterState = 'default' | 'correct' | 'wrong';
 
-interface LetterProps {
+export interface LetterProps {
     letter: string;
     state: 'default' | 'correct' | 'wrong';
 }
@@ -25,7 +25,7 @@ export const Letter: React.FC<LetterProps> = ({ letter, state = 'default' }) => 
     }
 
     return (
-        <span className={`${stateClassName}`}>
+        <span className={`${style.letter} ${stateClassName}`}>
             {letter}
         </span>
     );
