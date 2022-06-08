@@ -4,6 +4,7 @@ import { Word } from './components/Word';
 import { Statistics } from './components/Statistics';
 import useUserInput from './hooks/useUserInput';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { NavBar } from './components/NavBar'
 
 import { cet4 } from './assets/cet4';
 
@@ -43,6 +44,7 @@ function App() {
 
   return (
     <div className="App">
+      <NavBar />
       <Statistics hasStart={true} totalCnt={totalCnt} wrongCnt={wrongCnt} />
       <Word word={cet4[idx].name} userInput={userInput} />
     </div>
