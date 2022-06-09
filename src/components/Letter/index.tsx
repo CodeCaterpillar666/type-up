@@ -25,7 +25,7 @@ export const Letter: React.FC<LetterProps> = ({ letter, state = 'default' }) => 
     }
 
     return (
-        <span className={`${style.letter} ${stateClassName}`}>
+        <span className={`${style.letter} ${stateClassName} text-9xl` } >
             {letter}
         </span>
     );
