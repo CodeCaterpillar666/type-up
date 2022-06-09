@@ -13,16 +13,16 @@ export const Word: React.FC<WordProps> = ({ word, userInput }) => {
   useEffect(() => {}, [userInput]);
 
   return (
-    <>
-        {word.split('').map((letter, index) => {
-          if (index >= userInput.length) {
-            return (<Letter key={index} letter={letter} state={'default'} />)
-          } else if (letter === userInput[index]) {
-            return (<Letter key={index} letter={letter} state={'correct'} />)
-          } else {
-            return (<Letter key={index} letter={letter} state={'wrong'} />)
-          }
-        })}
-    </>
+    <div className="flex flex-nowrap flex-row">
+      {word.split('').map((letter, index) => {
+        if (index >= userInput.length) {
+          return (<Letter key={index} letter={letter} state={'default'} />)
+        } else if (letter === userInput[index]) {
+          return (<Letter key={index} letter={letter} state={'correct'} />)
+        } else {
+          return (<Letter key={index} letter={letter} state={'wrong'} />)
+        }
+      })}
+    </div>
   )
 };

@@ -12,8 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import KeyboardIcon from '@mui/icons-material/Keyboard';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+// const pages = ['Products', 'Pricing', 'Blog'];
+const pages: string[] = [];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export const NavBar = () => {
@@ -39,7 +41,11 @@ export const NavBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+
+          {/* Left most icon */}
+          <KeyboardIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+
+          {/* App name next to the icon */}
           <Typography
             variant="h6"
             noWrap
@@ -50,12 +56,12 @@ export const NavBar = () => {
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.1rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            TYPE-UP
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -69,6 +75,8 @@ export const NavBar = () => {
             >
               <MenuIcon />
             </IconButton>
+
+            {/* menu for pages array */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -94,7 +102,8 @@ export const NavBar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          {/* When page is narrowing done */}
+          <KeyboardIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -106,12 +115,12 @@ export const NavBar = () => {
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.1rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            TYPE-UP
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -125,12 +134,15 @@ export const NavBar = () => {
             ))}
           </Box>
 
+          {/* user avatar and its settings menu */}
           <Box sx={{ flexGrow: 0 }}>
+            {/* user avatar */}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+            {/* settings menu, appear after clicking */}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
