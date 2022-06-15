@@ -64,6 +64,9 @@ export const NavBar = () => {
     setAnchorElUser(null);
   };
 
+  const login = () => window.open("http://localhost:5000/auth/google", "_self");
+  const logout = () => window.open("http://localhost:5000/auth/logout", "_self");
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -189,7 +192,7 @@ export const NavBar = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <MenuItem key={"logout"} onClick={() => window.open("http://localhost:5000/auth/logout", "_self")}>
+                  <MenuItem key={"logout"} onClick={logout}>
                     <Typography textAlign="center">{"logout"}</Typography>
                   </MenuItem>
                   {/* {settings.map((setting) => (
@@ -204,8 +207,8 @@ export const NavBar = () => {
                 {/* user avatar */}
                 <Button 
                   variant="contained"
-                  color='secondary'
-                  onClick={() => window.open("http://localhost:5000/auth/google", "_self")}
+                  color='primary'
+                  onClick={login}
                 >
                   Login with Google
                 </Button>
