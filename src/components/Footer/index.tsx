@@ -8,7 +8,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import Stack from '@mui/material/Stack';
 
 const githubUrl: string = "https://github.com/CodeCaterpillar666/type-up";
-const email: string = "";
+const email: string = "mailto:typeup98101@gmail.com";
 
 function Copyright() {
   return (
