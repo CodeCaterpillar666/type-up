@@ -5,6 +5,8 @@ import { Statistics } from './components/Statistics';
 import useUserInput from './hooks/useUserInput';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { NavBar } from './components/NavBar'
+import Footer from './components/Footer'
+
 import axios from 'axios';
 
 // import { cet4 } from './assets/cet4';
@@ -21,10 +23,8 @@ function App() {
   const {userInput, reset, totalCnt, wrongCnt } = useUserInput();
   const [cet4, setCet4] = useState<Dictionary>([{"name":"loading"}]);
 
-  
-
   useEffect(() => {
-    axios.get('http://localhost:3001/cet4')
+    axios.get('http://localhost:3002/cet4')
     .then((res) => {
       setCet4(res.data);
     })
@@ -72,6 +72,7 @@ function App() {
         
         <div className="h-1/5"></div>
         <Statistics hasStart={true} totalCnt={totalCnt} wrongCnt={wrongCnt} />
+        <Footer description='' title='' />
       </div>
     </div>
   );
