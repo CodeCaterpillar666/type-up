@@ -1,11 +1,11 @@
 import { Paper, Box } from "@mui/material";
 import { MapCard } from '../Card'
 
-interface MapViewProps {
-  map: Map<String, String>;
+interface ArrayViewProps {
+  array: any[];
 }
 
-export const MapView: React.FC<MapViewProps> = ({map}) => {
+export const ArrayView: React.FC<ArrayViewProps> = ({ array }) => {
   return (
     <>
       <Box
@@ -19,10 +19,15 @@ export const MapView: React.FC<MapViewProps> = ({map}) => {
           },
         }}
       >
-        <MapCard cardKey={"Time"} cardVal={map.get("Time")!}></MapCard>
+        {
+          array.map(e => {
+            return (<MapCard cardKey={e.key} cardVal={e.value} />);
+          })
+        }
+        {/* <MapCard cardKey={"Time"} cardVal={map.get("Time")!}></MapCard>
         <MapCard cardKey={"Enter Letters"} cardVal={map.get("Enter Letters")!}></MapCard>
         <MapCard cardKey={"Correct Letters"} cardVal={map.get("Correct Letters")!}></MapCard>
-        <MapCard cardKey={"Correct Rate"} cardVal={map.get("Correct Rate")!}></MapCard>
+        <MapCard cardKey={"Correct Rate"} cardVal={map.get("Correct Rate")!}></MapCard> */}
       </Box>
     </>
   );
