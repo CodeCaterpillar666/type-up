@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { Word } from './components/Word';
 import { Statistics } from './components/Statistics';

@@ -11,16 +11,43 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
+import { useState, useEffect } from 'react'
 
 // const pages = ['Products', 'Pricing', 'Blog'];
 const pages: string[] = [];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const notLoggedInSettings = ['Login'];
 
 export const NavBar = () => {
+  const [user, setUser] = useState<any>();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  useEffect(() => {
+    const getUser = () => {
+      fetch("http://localhost:5000/auth/login/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": 'true',
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("authentication has been failed!");
+        })
+        .then((resObject) => {
+          setUser(resObject.user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getUser();
+  }, []);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -136,35 +163,54 @@ export const NavBar = () => {
 
           {/* user avatar and its settings menu */}
           <Box sx={{ flexGrow: 0 }}>
-            {/* user avatar */}
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            {/* settings menu, appear after clicking */}
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            {user
+              ? 
+              <>
+                {/* user avatar */}
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="Remy Sharp" src={ user.photos[0].value || "/static/images/avatar/2.jpg" } />
+                  </IconButton>
+                </Tooltip>
+                {/* settings menu, appear after clicking */}
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem key={"logout"} onClick={() => window.open("http://localhost:5000/auth/logout", "_self")}>
+                    <Typography textAlign="center">{"logout"}</Typography>
+                  </MenuItem>
+                  {/* {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))} */}
+                </Menu>
+              </>
+              : 
+              <>
+                {/* user avatar */}
+                <Button 
+                  variant="contained"
+                  color='secondary'
+                  onClick={() => window.open("http://localhost:5000/auth/google", "_self")}
+                >
+                  Login with Google
+                </Button>
+              </>
+            }
           </Box>
         </Toolbar>
       </Container>
