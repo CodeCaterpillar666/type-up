@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,13 +11,18 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+
 import KeyboardIcon from '@mui/icons-material/Keyboard';
-import { useState, useEffect } from 'react'
+import GitHubIcon from '@mui/icons-material/GitHub';
+import GoogleIcon from '@mui/icons-material/Google';
 
 // const pages = ['Products', 'Pricing', 'Blog'];
 const pages: string[] = [];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const notLoggedInSettings = ['Login'];
+
+// const hostUrl = 'https://type-up.herokuapp.com';
+const hostUrl = 'http://localhost:5000';
 
 export const NavBar = () => {
   const [user, setUser] = useState<any>();
@@ -26,7 +31,7 @@ export const NavBar = () => {
 
   useEffect(() => {
     const getUser = () => {
-      fetch("http://localhost:5000/auth/login/success", {
+      fetch(`${hostUrl}/auth/login/success`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -64,8 +69,9 @@ export const NavBar = () => {
     setAnchorElUser(null);
   };
 
-  const login = () => window.open("http://localhost:5000/auth/google", "_self");
-  const logout = () => window.open("http://localhost:5000/auth/logout", "_self");
+  const loginWithGoogle = () => window.open(`${hostUrl}/auth/google`, "_self");
+  const loginWithGithub = () => window.open(`${hostUrl}/auth/github`, "_self");
+  const logout = () => window.open(`${hostUrl}/auth/logout`, "_self");
 
   return (
     <AppBar position="static">
@@ -205,13 +211,42 @@ export const NavBar = () => {
               : 
               <>
                 {/* user avatar */}
-                <Button 
-                  variant="contained"
-                  color='primary'
-                  onClick={login}
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Button 
+                      variant="contained"
+                      color='primary'
+                    >
+                      Login
+                    </Button>
+                  </IconButton>
+                </Tooltip>
+                {/* settings menu, appear after clicking */}
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
                 >
-                  Login with Google
-                </Button>
+                  <MenuItem key={"login-google"} onClick={loginWithGoogle}>
+                    <GoogleIcon sx={{m: 2}} />
+                    <Typography textAlign="center">{"Login with Google"}</Typography>
+                  </MenuItem>
+                  <MenuItem key={"login-github"} onClick={loginWithGithub}>
+                    <GitHubIcon sx={{m: 2}} />
+                    <Typography textAlign="center">{"Login with GitHub"}</Typography>
+                  </MenuItem>
+                </Menu>
               </>
             }
           </Box>

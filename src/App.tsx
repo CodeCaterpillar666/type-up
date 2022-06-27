@@ -24,7 +24,7 @@ function App() {
   const [cet4, setCet4] = useState<Dictionary>([{"name":"loading"}]);
 
   useEffect(() => {
-    axios.get('http://localhost:3002/cet4')
+    axios.get('http://localhost:3005/cet4')
     .then((res) => {
       setCet4(res.data);
     })
