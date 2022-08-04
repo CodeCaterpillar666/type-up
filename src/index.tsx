@@ -3,10 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Gallery, IGallery } from './components/Gallery/index'
+
+const listOfDicts = [
+  {
+    'name': 'cet4',
+    'description': 'cet4',
+    'cnt': 100,
+  },
+  {
+    'name': 'cet4',
+    'description': 'cet4',
+    'cnt': 100,
+  }
+];
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    {/* <Gallery listOfDicts={listOfDicts}></Gallery> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

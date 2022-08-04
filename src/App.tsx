@@ -9,7 +9,7 @@ import Footer from './components/Footer'
 
 import axios from 'axios';
 
-// import { cet4 } from './assets/cet4';
+import { cet4 } from './assets/cet4';
 
 // https://stackoverflow.com/questions/25469244/how-can-i-define-an-interface-for-an-array-of-objects
 interface DictionaryItem {
@@ -21,14 +21,14 @@ interface Dictionary extends Array<DictionaryItem>{}
 function App() {
   const [idx, setIdx] = useState(0);
   const {userInput, reset, totalCnt, wrongCnt } = useUserInput();
-  const [cet4, setCet4] = useState<Dictionary>([{"name":"loading"}]);
+  // const [cet4, setCet4] = useState<Dictionary>([{"name":"loading"}]);
 
-  useEffect(() => {
-    axios.get('http://localhost:3002/cet4')
-    .then((res) => {
-      setCet4(res.data);
-    })
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://localhost:3005/cet4')
+  //   .then((res) => {
+  //     setCet4(res.data);
+  //   })
+  // }, []);
 
   useHotkeys('RIGHT', () => {
     increaseIdx()
