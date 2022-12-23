@@ -21,24 +21,11 @@ interface Dictionary extends Array<DictionaryItem>{}
 function App() {
   const [idx, setIdx] = useState(0);
   const {userInput, reset, totalCnt, wrongCnt } = useUserInput();
-  // const [cet4, setCet4] = useState<Dictionary>([{"name":"loading"}]);
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3005/cet4')
-  //   .then((res) => {
-  //     setCet4(res.data);
-  //   })
-  // }, []);
 
   useHotkeys('RIGHT', () => {
     increaseIdx()
     console.log(idx)
   });
-  // useHotkeys('LEFT', () => {
-  //   decreaseIdx()
-  //   @??? why idx is always 0?
-  //   if (idx > 0) console.log(idx)
-  // });
 
   const increaseIdx = () => {
     if (idx < cet4.length) {
